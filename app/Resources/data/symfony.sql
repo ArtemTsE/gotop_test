@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 
 INSERT INTO `article` (`id`, `title`, `content`) VALUES
 (1, 'An Article', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr'),
-(2, 'Another one', 'consetetur sadipscing elitr')
+(2, 'Another one', 'consetetur sadipscing elitr'),
 (3, 'Here we go again', 'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat'),
 (4, 'And again', 'At vero eos et accusam et justo duo dolores'),
 (5, 'This is not the end', 'Whatever this means.'),

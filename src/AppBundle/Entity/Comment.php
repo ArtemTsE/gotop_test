@@ -28,24 +28,64 @@ class Comment
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", fetch="LAZY")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
     private $article;
 
-    public function getId(){
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getArticle(){
-        return $this->article;
-    }    
-
-    public function getTitle(){
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function getContent(){
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContent()
+    {
         return $this->content;
     }
 
+    /**
+     * @param mixed $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+
+    /**
+     * @param mixed $article
+     */
+    public function setArticle($article)
+    {
+        $this->article = $article;
+    }
 }

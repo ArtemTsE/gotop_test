@@ -4,24 +4,23 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Comment;
-use AppBundle\Entity\Article;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use AppBundle\Service\Paginator;
 
 class CommentController extends Controller
 {
     /**
      * @Route("/api/comment", name="comments", methods={"GET"})
      */
-    public function commentAction()
+    public function commentAction(Paginator $paginator)
     {
         $repository = $this->getDoctrine()->getRepository(Comment::class);
         $comments   = $repository->findAll();
+        $comments   = $paginator->paginate($comments);
 
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setCircularReferenceHandler(function ($object) {
@@ -43,7 +42,7 @@ class CommentController extends Controller
         $repository = $this->getDoctrine()->getRepository(Comment::class);
         $comment = $repository->find($id);
 
-        $data = $comment ? $comment : ['error' => 'No such a comment (id:' . $id . ')'];
+        $data = $comment ?: ['error' => 'No such a comment (id:' . $id . ')'];
 
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setCircularReferenceHandler(function ($object) {
